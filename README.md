@@ -15,7 +15,11 @@
 
 ---
 
-## 🧾 المتطلبات
+## 🧾 المتطلبات![Screenshot (23)](https://github.com/user-attachments/assets/14735ebc-4342-427c-809a-a05cfabd3241)
+![Screenshot (22)](https://github.com/user-attachments/assets/86609da7-0829-49ae-801f-af23f78c60f6)
+![Screenshot (21)](https://github.com/user-attachments/assets/937e725b-d1fa-4f84-a7e3-74fa7e711663)
+![Screenshot (20)](https://github.com/user-attachments/assets/68f65775-c1de-4a25-90f8-a09676bbcf17)
+
 
 - [Node.js](https://nodejs.org/)
 - npm
@@ -30,4 +34,3 @@ cd Book-Store
 npm install
 npm start
 ## صور
-![Screenshot (23)](https://github.com/user-attachments/assets/25c4818f-4d8d-4449-b8b2-3b770aa3fc13)
