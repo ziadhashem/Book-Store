@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>لوحة التحكم - المكتبة الرقمية</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons (اختياري) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            padding-top: 56px; /* لحماية المحتوى من navbar الثابت */
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 56px;
+            right: 0;
+            background-color: #343a40;
+            padding-top: 1rem;
+            color: white;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.75rem 1rem;
+        }
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+        .main-content {
+            margin-right: 250px;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ✅ Navbar -->
+<!-- ✅ Sidebar (Drawer) -->
+<div id="shared-navbar"></div>
+<!-- ✅ Main Content -->
+<div class="main-content">
+    <h2>مرحبًا بك في لوحة التحكم</h2>
+    <p>استخدم القائمة الجانبية للتنقل بين أقسام الإدارة.</p>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/shared-navbar.js"></script>
+
+<!-- شيفرة جافاسكربت بسيطة لإظهار الأدمن -->
+<script>
+    // مثال: إظهار القائمة إذا كان المستخدم أدمن
+    const isAdmin = true; // اجعلها false إذا لم يكن أدمن
+    if (isAdmin) {
+        document.querySelectorAll('.admin-only').forEach(el => el.classList.remove('d-none'));
+        document.getElementById('loginBtnContainer')?.classList.add('d-none');
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>إدارة الكتب</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+
+    <style>
+        body {
+            padding-top: 56px;
+            margin-right: 250px;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 56px;
+            right: 0;
+            background-color: #343a40;
+            padding-top: 1rem;
+            color: white;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.75rem 1rem;
+        }
+
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+
+        .main-content {
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ✅ Navbar / Sidebar (مشتركة) -->
+<div id="shared-navbar"></div>
+
+<!-- ✅ Main Content -->
+<div class="main-content">
+    <h2>📚 إدارة الكتب</h2>
+    <table class="table table-striped table-bordered mt-4">
+        <thead class="table-dark text-center">
+        <tr>
+            <th>عنوان الكتاب</th>
+            <th>المؤلف</th>
+            <th>التصنيف</th>
+            <th>الإجراءات</th>
+        </tr>
+        </thead>
+        <tbody id="booksTableBody">
+        <!-- سيتم تعبئة الصفوف هنا -->
+        </tbody>
+    </table>
+    <!-- ✅ Modal تعديل الكتاب -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" dir="rtl">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">✏️ تعديل بيانات الكتاب</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editBookForm">
+                        <input type="hidden" id="editBookId" />
+                        <div class="mb-3">
+                            <label for="editTitle" class="form-label">عنوان الكتاب</label>
+                            <input type="text" class="form-control" id="editTitle" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAuthor" class="form-label">المؤلف</label>
+                            <input type="text" class="form-control" id="editAuthor" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCategory" class="form-label">التصنيف</label>
+                            <input type="text" class="form-control" id="editCategory" required />
+                        </div>
+                        <button type="submit" class="btn btn-primary">💾 حفظ التعديلات</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ✅ Scripts -->
+<script src="js/shared-navbar.js"></script>
+
+<script src="main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // let allBooks = [];
+
+    async function displayBooksInTable(books) {
+        const tbody = document.getElementById("booksTableBody");
+        tbody.innerHTML = "";
+
+        books.forEach(book => {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+        <td>${book.title}</td>
+        <td>${book.author}</td>
+        <td>${book.category}</td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-primary me-1 edit-btn" data-id="${book.id}">✏️ تعديل</button>
+          <button class="btn btn-sm btn-danger delete-btn" data-id="${book.id}">🗑️ حذف</button>
+        </td>
+      `;
+
+            tbody.appendChild(row);
+        });
+
+        document.querySelectorAll(".edit-btn").forEach(button => {
+            button.addEventListener("click", e => {
+                const id = e.target.getAttribute("data-id");
+                const book = allBooks.find(b => b.id == id);
+                localStorage.setItem("book", JSON.stringify(book));
+                return window.location.href = "edit-book.html";
+            });
+        });
+    }
+
+    async function loadBooks() {
+        try {
+            const res = await fetch("/books");
+            allBooks = await res.json();
+            displayBooksInTable(allBooks);
+        } catch (error) {
+            console.error("فشل في تحميل الكتب:", error);
+        }
+    }
+
+    // إرسال التعديلات إلى السيرفر
+    document.getElementById("editBookForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const id = document.getElementById("editBookId").value;
+        const updatedBook = {
+            title: document.getElementById("editTitle").value,
+            author: document.getElementById("editAuthor").value,
+            category: document.getElementById("editCategory").value,
+        };
+
+        try {
+            const res = await fetch(`/books/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(updatedBook),
+            });
+
+            if (res.ok) {
+                // تحديث القائمة بعد التعديل
+                loadBooks();
+                bootstrap.Modal.getInstance(document.getElementById("editModal")).hide();
+            } else {
+                alert("حدث خطأ أثناء تعديل الكتاب.");
+            }
+        } catch (err) {
+            console.error(err);
+            alert("فشل في الاتصال بالسيرفر.");
+        }
+    });
+
+    // تحميل الكتب عند بدء الصفحة
+    loadBooks().then(() =>  {
+            document.getElementById("booksTableBody").addEventListener("click", e => {
+                if (e.target.classList.contains("delete-btn")) {
+                    const id = e.target.dataset.id;
+                    console.log("Deleting ID:", id);
+                    deleteBook(id);
+                }
+            });
+        // delete_btns.forEach(btn => {
+        //     btn.addEventListener("click", e => {
+        //         console.log("sdsd");
+        //         const id = e.target.dataset.id;
+        //         console.log(id);
+        //         deleteBook(id);
+        //     });
+        // });
+    });
+
+</script>
+
+
+</body>
+</html>

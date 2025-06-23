@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1748212611065,
+    "title": "الحكم العطائية",
+    "author": "ابن عطاء الله السكندري",
+    "category": "ديني",
+    "coverImage": "/uploads/1970997774f.jpg",
+    "bookFile": "/uploads/19709977750.pdf"
+  },
+  {
+    "id": 1748212690569,
+    "title": "الأب الغني والأب الفقير",
+    "author": "روبرت كيوساكي 666",
+    "category": "ثقافي",
+    "coverImage": "/uploads/1970998ae87.jpg",
+    "bookFile": ""
+  },
+  {
+    "id": 1748212843205,
+    "title": "الحرب والسلم",
+    "author": "لليو تولستوي ",
+    "category": "تاريخ",
+    "coverImage": "/uploads/197099b0218.png",
+    "bookFile": "/uploads/197099b021a.pdf"
+  },
+  {
+    "id": 1748214052301,
+    "title": "جمهورية أفلاطون",
+    "author": "أفلاطون",
+    "category": "فلسفة",
+    "coverImage": "/uploads/19709ad7526.png",
+    "bookFile": "/uploads/19709ad752a.pdf"
+  },
+  {
+    "id": 1748214279078,
+    "title": "فن الامبالاة ",
+    "author": "مارك مانسون",
+    "category": "علم  نفس",
+    "coverImage": "/uploads/19709b0eaf7.jpg",
+    "bookFile": "/uploads/19709b0eaf8.pdf"
+  }
+]

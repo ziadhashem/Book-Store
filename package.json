@@ -1,0 +1,16 @@
+{
+  "name": "digital-library",
+  "version": "1.0.0",
+  "description": "مكتبة رقمية لإدارة الكتب مع صلاحيات للمشرف",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "ziad hashem",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "multer": "^1.4.4"
+  }
+}

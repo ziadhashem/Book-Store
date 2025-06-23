@@ -1,0 +1,21 @@
+#coverPreview {
+    display: flex;
+    justify-content: center; /* centers horizontally */
+    align-items: center;     /* centers vertically if height is set */
+    margin-top: 5px;        /* optional spacing */
+}
+.dropzone {
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+.dropzone.dragover {
+    background-color: #e3f2fd;
+}
+.dropzone img {
+    max-width: 100px;
+    margin-top: 10px;
+}
